@@ -5,6 +5,7 @@
 
 ### SublimeText ###
 # cache files for sublime text
+.cache/*
 *.tmlanguage.cache
 *.tmPreferences.cache
 *.stTheme.cache

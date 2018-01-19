@@ -1,5 +1,0 @@
-.*
-!.coveragerc
-!.env
-!.env_production
-!.pylintrc

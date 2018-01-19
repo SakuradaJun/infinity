@@ -5,7 +5,7 @@ from captcha.conf import settings
 from captcha.models import CaptchaStore
 
 from django.test import override_settings
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from src.users.models import (
     User,

@@ -1,9 +1,9 @@
-from django.conf.urls import include, url
+from django.urls import include, path
 
 from src.api.views import SchemaView
 
 
 urlpatterns = [
-    url('^api/', SchemaView.as_view()),
-    url(r'^', include('src.api.v1.urls')),
+    path('api/', SchemaView.as_view()),
+    path('', include('src.api.v1.urls')),
 ]

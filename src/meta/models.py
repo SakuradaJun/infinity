@@ -125,8 +125,8 @@ class Instance(GenericTranslationModel):
     ]
 
     role = models.PositiveSmallIntegerField(ITEM_ROLES, default=THING)
-    concept = models.ForeignKey(Type)
-    schema = models.ForeignKey(Schema, null=True, blank=True)
+    concept = models.ForeignKey(Type, on_delete=models.CASCADE)
+    schema = models.ForeignKey(Schema, null=True, blank=True, on_delete=models.CASCADE)
 
     identifiers = models.TextField()
     description = models.TextField()

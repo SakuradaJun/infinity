@@ -15,13 +15,11 @@ class Topic(TopicTransactionMixin, GenericTranslationModel):
     """
     Y: Main content type, to include fields of all infty types.
 
-    Note: 'STEP' is missing intentionally. 'TASK' and 'STEP' are
-    redundant, and in the choice, which one to get rid of, 'STEP'
-    made more sense to remove, because people have theories of HTN
-    (hierarchical task networks), and 'TASK' is understood as 'STEP'
-    by AI planning community. Also 'TASK' is much more tangible thing
-    to start with for people. We'll introduce the fields of 'STEP'
-    (e.g., planning I/O, https://github.com/wefindx/StepIO) later.
+    Note: 'STEP' and 'TASK' are redundant in context of theories of HTN
+    (hierarchical task networks), and 'TASK' is understood as termainal
+    'STEP' by AI planning community. However, 'TASK' is much more
+    tangible thing to start with for people. We'll introduce the fields
+    of 'STEP' (e.g., planning I/O, https://github.com/wefindx/StepIO) later.
 
     Note: order of languages is preserved, in the order of input.
     """
@@ -47,7 +45,7 @@ class Topic(TopicTransactionMixin, GenericTranslationModel):
     title = models.TextField()
     body = models.TextField(null=True, blank=True)
 
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     editors = models.ManyToManyField(
         User, related_name='topic_editors', blank=True)
     parents = models.ManyToManyField(
@@ -89,7 +87,7 @@ class Comment(CommentTransactionMixin, GenericTranslationModel):
 
     Note: order of languages is preserved, in the order of input.
     """
-    topic = models.ForeignKey(Topic)
+    topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
     text = models.TextField()
 
     claimed_hours = models.DecimalField(
@@ -97,11 +95,11 @@ class Comment(CommentTransactionMixin, GenericTranslationModel):
     assumed_hours = models.DecimalField(
         default=0., decimal_places=8, max_digits=20)
 
-    owner = models.ForeignKey(User)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     blockchain = models.PositiveSmallIntegerField(
         CryptoKeypair.KEY_TYPES, default=False)
 
-    parent = models.ForeignKey('self', null=True, blank=True)
+    parent = models.ForeignKey('self', null=True, blank=True, on_delete=models.CASCADE)
 
     source = models.TextField(null=True, blank=True)
     data = JSONField(null=True, blank=True)

@@ -1,6 +1,6 @@
 from langsplit import splitter
 
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from rest_framework import serializers
 
 from src.core.models import (

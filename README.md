@@ -1,26 +1,36 @@
-# Infinity Project
-[![Travis status](https://travis-ci.org/infamily/infinity.svg?branch=base&style=flat)](https://travis-ci.org/infamily/infinity)
+# Infinity
 
-## Quick Start
+Install psql (PostgreSQL) 10.1, `createdb infinity`
 
-Checkout and do `docker-compose up` locally.
+`git clone git@github.com:infamily/infinity.git`
 
-### Current workflow:
+Then:
 
 ```
-git clone git@github.com:infamily/infinity.git
-git fetch --all
-git checkout base
+cd infinity
+pipenv install
+pipenv shell
+python manage.py migrate
+python manage.py runserver
+```
+_Note, that whatever user you create, the username is set to username_hash(self.email), e.g.:_
 
-git checkout -b feature
-
-...
-
-PR: base <- feature
+```python
+>>> from oo.users.models import username_hash
+>>> username_hash('admin@admin.com')
+Admin@D3942DCE
 ```
 
-(If branching from master breaks builds, ssh to node, and `git remote prune origin`.)
 
-**NB! Do PR to `base` branch. Bot autodeploys to `master`.**
+Apply fixtures:
 
-Regarding environment variables, read [here](docs/envars.md), and regarding devops, [here](docs/devops.md).
+```
+python manage.py loaddata languages
+python manage.py loaddata types instances
+python manage.py loaddata currencies currency_price_snapshots hour_price_snapshots
+```
+
+Run tests:
+
+`py.test`
+

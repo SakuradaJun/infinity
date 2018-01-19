@@ -1,6 +1,0 @@
-site_name: Infinity
-pages:
-    - Home: index.md
-    - Devops: devops.md
-    - Envars: envars.md
-theme: readthedocs
